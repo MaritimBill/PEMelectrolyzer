@@ -1,5 +1,7 @@
 // navigation.js - Page navigation and routing
 function showPage(pageId) {
+    console.log('🔄 Switching to page:', pageId);
+    
     // Hide all pages
     document.querySelectorAll('.page').forEach(page => {
         page.classList.remove('active');
@@ -11,14 +13,17 @@ function showPage(pageId) {
     });
     
     // Show selected page and activate nav link
-    document.getElementById(pageId).classList.add('active');
-    event.target.classList.add('active');
+    const targetPage = document.getElementById(pageId);
+    if (targetPage) {
+        targetPage.classList.add('active');
+        event.target.classList.add('active');
+        console.log('✅ Page activated:', pageId);
+    } else {
+        console.error('❌ Page not found:', pageId);
+    }
     
     // Update time display for active page
     updatePageTime(pageId);
-    
-    // Initialize charts for the page if they exist
-    setTimeout(() => initializePageCharts(pageId), 100);
 }
 
 function updatePageTime(pageId) {
@@ -28,47 +33,36 @@ function updatePageTime(pageId) {
     }
 }
 
-function initializePageCharts(pageId) {
-    if (window.chartManager) {
-        switch(pageId) {
-            case 'dashboard':
-                // Dashboard charts are already initialized
-                break;
-            case 'electrolyzer':
-                if (!window.chartManager.charts.electrolyzerChart) {
-                    window.chartManager.initializeElectrolyzerCharts();
-                }
-                break;
-            case 'analytics':
-                if (!window.chartManager.charts.economicChart) {
-                    window.chartManager.initializeAnalyticsCharts();
-                }
-                break;
-        }
+// Add event listeners when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('📍 Navigation initialized');
+    
+    // Add click listeners to all nav links
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const pageId = this.getAttribute('onclick').match(/'([^']+)'/)[1];
+            showPage(pageId);
+        });
+    });
+    
+    // Initialize first page
+    showPage('dashboard');
+});
+
+// Global function for buttons
+function sendUpperLayerCommand(command) {
+    if (window.mqttManager) {
+        window.mqttManager.sendUpperLayerCommand(command);
+    } else {
+        alert('MQTT not connected');
     }
 }
 
-// Keyboard shortcuts for navigation
-document.addEventListener('keydown', (e) => {
-    if (e.ctrlKey) {
-        switch(e.key) {
-            case '1':
-                showPage('dashboard');
-                break;
-            case '2':
-                showPage('electrolyzer');
-                break;
-            case '3':
-                showPage('analytics');
-                break;
-            case '4':
-                showPage('neural');
-                break;
-        }
+function sendLowerLayerCommand(command) {
+    if (window.mqttManager) {
+        window.mqttManager.sendLowerLayerCommand(command);
+    } else {
+        alert('MQTT not connected');
     }
-});
-
-// Initialize first page
-document.addEventListener('DOMContentLoaded', () => {
-    showPage('dashboard');
-});
+}
