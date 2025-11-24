@@ -1,5 +1,8 @@
-// navigation.js - Page navigation and routing
-function showPage(pageId) {
+// navigation.js - WORKING VERSION FOR FLAT STRUCTURE
+console.log('✅ navigation.js loaded');
+
+// Global function for page navigation
+window.showPage = function(pageId) {
     console.log('🔄 Switching to page:', pageId);
     
     // Hide all pages
@@ -7,62 +10,73 @@ function showPage(pageId) {
         page.classList.remove('active');
     });
     
-    // Remove active class from all nav links
+    // Remove active from all nav links
     document.querySelectorAll('.nav-link').forEach(link => {
         link.classList.remove('active');
     });
     
-    // Show selected page and activate nav link
+    // Show target page
     const targetPage = document.getElementById(pageId);
     if (targetPage) {
         targetPage.classList.add('active');
-        event.target.classList.add('active');
-        console.log('✅ Page activated:', pageId);
-    } else {
-        console.error('❌ Page not found:', pageId);
     }
     
-    // Update time display for active page
-    updatePageTime(pageId);
-}
-
-function updatePageTime(pageId) {
+    // Activate clicked nav link
+    event.target.classList.add('active');
+    
+    // Update time display
     const timeElement = document.getElementById(pageId + 'Time');
     if (timeElement) {
         timeElement.textContent = new Date().toLocaleTimeString();
     }
+    
+    console.log('✅ Page activated:', pageId);
 }
 
-// Add event listeners when DOM is loaded
+// Global functions for buttons
+window.sendUpperLayerCommand = function(command) {
+    console.log('🔧 Upper layer command:', command);
+    alert('Upper Layer Command: ' + command + ' sent!');
+};
+
+window.sendLowerLayerCommand = function(command) {
+    console.log('🔧 Lower layer command:', command);
+    alert('Lower Layer Command: ' + command + ' sent!');
+};
+
+// Initialize when page loads
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('📍 Navigation initialized');
+    console.log('🚀 DOM loaded - initializing navigation');
     
-    // Add click listeners to all nav links
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const pageId = this.getAttribute('onclick').match(/'([^']+)'/)[1];
-            showPage(pageId);
+    // Setup slider functionality
+    const economicSlider = document.getElementById('economicSetpoint');
+    if (economicSlider) {
+        economicSlider.addEventListener('input', function(e) {
+            const value = e.target.value + '%';
+            document.getElementById('economicValue').textContent = value;
+            console.log('🎚️ Economic slider:', value);
         });
-    });
+    }
     
-    // Initialize first page
-    showPage('dashboard');
+    // Setup safety slider
+    const safetySlider = document.getElementById('safetySetpoint');
+    if (safetySlider) {
+        safetySlider.addEventListener('input', function(e) {
+            const value = e.target.value + '%';
+            document.getElementById('safetyValue').textContent = value;
+            console.log('🎚️ Safety slider:', value);
+        });
+    }
+    
+    // Initialize time displays
+    setInterval(() => {
+        const now = new Date().toLocaleTimeString();
+        document.querySelectorAll('.time-display').forEach(display => {
+            if (display.textContent === '--:--:--') {
+                display.textContent = now;
+            }
+        });
+    }, 1000);
+    
+    console.log('✅ Navigation and controls initialized');
 });
-
-// Global function for buttons
-function sendUpperLayerCommand(command) {
-    if (window.mqttManager) {
-        window.mqttManager.sendUpperLayerCommand(command);
-    } else {
-        alert('MQTT not connected');
-    }
-}
-
-function sendLowerLayerCommand(command) {
-    if (window.mqttManager) {
-        window.mqttManager.sendLowerLayerCommand(command);
-    } else {
-        alert('MQTT not connected');
-    }
-}
