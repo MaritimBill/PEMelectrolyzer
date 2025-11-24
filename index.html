@@ -4,11 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HE-NMPC Electrolyzer Control System</title>
+    <meta name="description" content="Hierarchical Economic Neural MPC for PEM Electrolyzer Control">
+    
+    <!-- Charts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- MQTT -->
     <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+    
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/components.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/components.css">
 </head>
 <body>
     <div class="dashboard-container">
@@ -44,12 +53,317 @@
                     Safety & Compliance
                 </a>
             </div>
+            
+            <div class="sidebar-footer">
+                <div class="connection-status">
+                    <i class="fas fa-circle status-indicator" id="mqttStatus"></i>
+                    <span>MQTT: <span id="mqttStatusText">Connecting...</span></span>
+                </div>
+                <div class="deployment-info">
+                    <small>HE-NMPC Web Dashboard v1.0</small>
+                </div>
+            </div>
         </div>
 
         <!-- Main Content -->
         <div class="main-content">
-            <!-- Dashboard Page Content Here -->
-            <!-- (Same structure as before but with dark theme) -->
+            <!-- Dashboard Page -->
+            <div id="dashboard" class="page active">
+                <div class="header">
+                    <div class="header-title">
+                        <h1>HE-NMPC Electrolyzer Control Dashboard</h1>
+                        <p>Real-time PEM Electrolyzer Monitoring & Control with Hierarchical Economic Neural MPC</p>
+                    </div>
+                    <div class="header-actions">
+                        <div class="time-display" id="currentTime">--:--:--</div>
+                        <div class="connection-badge" id="connectionBadge">
+                            <i class="fas fa-wifi"></i>
+                            <span>Online</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Status Grid -->
+                <div class="status-grid">
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">System Status</div>
+                            <div class="status-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="systemStatus">OPERATIONAL</div>
+                        <div class="status-trend">
+                            <i class="fas fa-arrow-up"></i>
+                            All systems normal
+                        </div>
+                    </div>
+                    <div class="status-card success">
+                        <div class="status-header">
+                            <div class="status-title">Production Rate</div>
+                            <div class="status-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="productionRate">86.5%</div>
+                        <div class="status-trend">
+                            <i class="fas fa-arrow-up"></i>
+                            2.3% from last hour
+                        </div>
+                    </div>
+                    <div class="status-card warning">
+                        <div class="status-header">
+                            <div class="status-title">Efficiency</div>
+                            <div class="status-icon">
+                                <i class="fas fa-tachometer-alt"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="efficiency">78.2%</div>
+                        <div class="status-trend">
+                            <i class="fas fa-arrow-up"></i>
+                            1.1% optimized
+                        </div>
+                    </div>
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">Safety Margin</div>
+                            <div class="status-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="safetyMargin">22.7%</div>
+                        <div class="status-trend">
+                            <i class="fas fa-check"></i>
+                            Within limits
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MPC Comparison Section -->
+                <h2 class="section-title">
+                    <i class="fas fa-balance-scale"></i>
+                    MPC Performance Comparison
+                </h2>
+
+                <div class="comparison-grid">
+                    <div class="mpc-card he-nmpc featured">
+                        <div class="mpc-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="mpc-name">HE-NMPC</div>
+                        <div class="mpc-description">Hierarchical Economic Neural MPC with dual-layer optimization</div>
+                        <div class="mpc-score">94%</div>
+                        <div class="mpc-metrics">
+                            <div class="metric-item">
+                                <div class="metric-label">Economic</div>
+                                <div class="metric-value">96%</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-label">Safety</div>
+                                <div class="metric-value">95%</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-label">Speed</div>
+                                <div class="metric-value">91%</div>
+                            </div>
+                        </div>
+                        <div class="mpc-pros">
+                            <div class="pros-title">Advantages:</div>
+                            <ul class="pros-list">
+                                <li><i class="fas fa-check"></i> Dual-layer optimization</li>
+                                <li><i class="fas fa-check"></i> Neural network efficiency</li>
+                                <li><i class="fas fa-check"></i> Hard safety constraints</li>
+                                <li><i class="fas fa-check"></i> MCU compatible</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="mpc-card stochastic">
+                        <div class="mpc-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="mpc-name">Stochastic MPC</div>
+                        <div class="mpc-description">Probabilistic optimization with uncertainty handling</div>
+                        <div class="mpc-score">87%</div>
+                        <div class="mpc-metrics">
+                            <div class="metric-item">
+                                <div class="metric-label">Economic</div>
+                                <div class="metric-value">89%</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-label">Safety</div>
+                                <div class="metric-value">85%</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-label">Speed</div>
+                                <div class="metric-value">82%</div>
+                            </div>
+                        </div>
+                        <div class="mpc-pros">
+                            <div class="pros-title">Advantages:</div>
+                            <ul class="pros-list">
+                                <li><i class="fas fa-check"></i> Handles forecast uncertainty</li>
+                                <li><i class="fas fa-check"></i> Robust performance</li>
+                                <li><i class="fas fa-check"></i> Chance constraints</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="mpc-card mixed-integer">
+                        <div class="mpc-icon">
+                            <i class="fas fa-sitemap"></i>
+                        </div>
+                        <div class="mpc-name">Mixed-Integer MPC</div>
+                        <div class="mpc-description">Optimization with discrete and continuous decisions</div>
+                        <div class="mpc-score">82%</div>
+                        <div class="mpc-metrics">
+                            <div class="metric-item">
+                                <div class="metric-label">Economic</div>
+                                <div class="metric-value">84%</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-label">Safety</div>
+                                <div class="metric-value">79%</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-label">Speed</div>
+                                <div class="metric-value">76%</div>
+                            </div>
+                        </div>
+                        <div class="mpc-pros">
+                            <div class="pros-title">Advantages:</div>
+                            <ul class="pros-list">
+                                <li><i class="fas fa-check"></i> Discrete decision capture</li>
+                                <li><i class="fas fa-check"></i> Equipment on/off optimization</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="mpc-card standard">
+                        <div class="mpc-icon">
+                            <i class="fas fa-sliders-h"></i>
+                        </div>
+                        <div class="mpc-name">Standard MPC</div>
+                        <div class="mpc-description">Conventional model predictive control</div>
+                        <div class="mpc-score">76%</div>
+                        <div class="mpc-metrics">
+                            <div class="metric-item">
+                                <div class="metric-label">Economic</div>
+                                <div class="metric-value">78%</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-label">Safety</div>
+                                <div class="metric-value">74%</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-label">Speed</div>
+                                <div class="metric-value">72%</div>
+                            </div>
+                        </div>
+                        <div class="mpc-pros">
+                            <div class="pros-title">Advantages:</div>
+                            <ul class="pros-list">
+                                <li><i class="fas fa-check"></i> Established methodology</li>
+                                <li><i class="fas fa-check"></i> Wide tool support</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Grid -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">MPC Performance Comparison Over Time</div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="performanceChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">Cost Distribution Analysis</div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="costChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Control Panel -->
+                <div class="control-panel">
+                    <div class="chart-header">
+                        <div class="chart-title">HE-NMPC Control Parameters</div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">
+                            <i class="fas fa-chart-line"></i>
+                            Economic Optimization Setpoint (Upper Layer)
+                        </label>
+                        <div class="slider-container">
+                            <span>0%</span>
+                            <input type="range" min="0" max="100" value="75" class="slider" id="economicSetpoint">
+                            <span>100%</span>
+                            <span class="slider-value" id="economicValue">75%</span>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">
+                            <i class="fas fa-shield-alt"></i>
+                            Safety Constraint Setpoint (Lower Layer)
+                        </label>
+                        <div class="slider-container">
+                            <span>0%</span>
+                            <input type="range" min="0" max="100" value="72" class="slider" id="safetySetpoint" disabled>
+                            <span>100%</span>
+                            <span class="slider-value" id="safetyValue">72%</span>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-primary" onclick="sendUpperLayerCommand('RUN_OPTIMIZATION')">
+                            <i class="fas fa-play"></i>
+                            Run Economic Optimization
+                        </button>
+                        <button class="btn btn-outline" onclick="sendLowerLayerCommand('CALIBRATE_SENSORS')">
+                            <i class="fas fa-sync"></i>
+                            Calibrate Safety Layer
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other pages would go here -->
+            <div id="electrolyzer" class="page">
+                <div class="header">
+                    <div class="header-title">
+                        <h1>Electrolyzer Control System</h1>
+                        <p>Real-time PEM Electrolyzer Monitoring and Control</p>
+                    </div>
+                    <div class="header-actions">
+                        <div class="time-display" id="electrolyzerTime">--:--:--</div>
+                    </div>
+                </div>
+                <div class="page-content">
+                    <p>Electrolyzer control interface coming soon...</p>
+                </div>
+            </div>
+
+            <div id="analytics" class="page">
+                <div class="header">
+                    <div class="header-title">
+                        <h1>Performance Analytics</h1>
+                        <p>HE-NMPC vs Other MPC Methods - Comprehensive Analysis</p>
+                    </div>
+                    <div class="header-actions">
+                        <div class="time-display" id="analyticsTime">--:--:--</div>
+                    </div>
+                </div>
+                <div class="page-content">
+                    <p>Analytics dashboard coming soon...</p>
+                </div>
+            </div>
+
+            <!-- Add other pages as needed -->
         </div>
     </div>
 
@@ -59,11 +373,12 @@
         <span id="notificationText">HE-NMPC System Initialized</span>
     </div>
 
-    <script src="js/mqtt.js"></script>
-    <script src="js/neural-mpc.js"></script>
-    <script src="js/simulink-bridge.js"></script>
-    <script src="js/arduino-interface.js"></script>
-    <script src="js/charts.js"></script>
-    <script src="js/app.js"></script>
+    <!-- JavaScript Files -->
+    <script src="./js/navigation.js"></script>
+    <script src="./js/charts.js"></script>
+    <script src="./js/mqtt.js"></script>
+    <script src="./js/neural-mpc.js"></script>
+    <script src="./js/simulink-bridge.js"></script>
+    <script src="./js/app.js"></script>
 </body>
 </html>
