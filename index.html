@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HE-NMPC Electrolyzer Control System</title>
-    <meta name="description" content="Hierarchical Economic Neural MPC for PEM Electrolyzer Control">
     
     <!-- Charts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -15,9 +14,9 @@
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="./css/main.css">
-    <link rel="stylesheet" href="./css/components.css">
+    <!-- Custom CSS - FLAT STRUCTURE PATHS -->
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="components.css">
 </head>
 <body>
     <div class="dashboard-container">
@@ -332,7 +331,7 @@
                 </div>
             </div>
 
-            <!-- Other pages would go here -->
+            <!-- Other Pages -->
             <div id="electrolyzer" class="page">
                 <div class="header">
                     <div class="header-title">
@@ -373,12 +372,18 @@
         <span id="notificationText">HE-NMPC System Initialized</span>
     </div>
 
-    <!-- JavaScript Files -->
-    <script src="./js/navigation.js"></script>
-    <script src="./js/charts.js"></script>
-    <script src="./js/mqtt.js"></script>
-    <script src="./js/neural-mpc.js"></script>
-    <script src="./js/simulink-bridge.js"></script>
-    <script src="./js/app.js"></script>
+    <!-- JavaScript Files - FLAT STRUCTURE PATHS -->
+    <script src="navigation.js"></script>
+    <script src="charts.js"></script>
+    <script src="mqtt.js"></script>
+    <script src="neural-mpc.js"></script>
+    <script src="simulink-bridge.js"></script>
+    <script src="app.js"></script>
+
+    <!-- Quick Test Script -->
+    <script>
+    console.log('=== HE-NMPC DASHBOARD LOADED ===');
+    console.log('All files should be working now!');
+    </script>
 </body>
 </html>
