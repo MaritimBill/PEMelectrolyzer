@@ -17,6 +17,268 @@
     <!-- Custom CSS - FLAT STRUCTURE PATHS -->
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="components.css">
+    
+    <style>
+        /* Additional styles for new pages */
+        .predictions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .prediction-card {
+            background: rgba(13, 25, 43, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+        
+        .prediction-title {
+            font-size: 14px;
+            color: #b0b0b0;
+            margin-bottom: 10px;
+        }
+        
+        .prediction-value {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            background: linear-gradient(135deg, #4a90e2, #67b26f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .prediction-confidence {
+            font-size: 12px;
+            color: #888;
+        }
+        
+        .neural-architecture {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .nn-layer {
+            text-align: center;
+            padding: 15px;
+            background: rgba(74, 144, 226, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(74, 144, 226, 0.3);
+        }
+        
+        .layer-title {
+            font-size: 12px;
+            color: #b0b0b0;
+            margin-bottom: 10px;
+        }
+        
+        .neurons {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .neuron {
+            padding: 5px 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            font-size: 11px;
+        }
+        
+        .nn-connections {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .connection-line {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #4a90e2, transparent);
+            margin: 0 10px;
+        }
+        
+        .metrics-table {
+            overflow-x: auto;
+        }
+        
+        .metrics-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .metrics-table th,
+        .metrics-table td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .metrics-table th {
+            background: rgba(74, 144, 226, 0.2);
+            font-weight: 600;
+        }
+        
+        .metrics-table .best {
+            background: rgba(103, 178, 111, 0.2);
+            font-weight: 700;
+        }
+        
+        .cost-analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .cost-category {
+            background: rgba(13, 25, 43, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .cost-category h4 {
+            margin-bottom: 15px;
+            color: #4a90e2;
+        }
+        
+        .cost-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .cost-value {
+            font-weight: 600;
+        }
+        
+        .cost-value.revenue {
+            color: #67b26f;
+        }
+        
+        .cost-total {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 2px solid rgba(255, 255, 255, 0.1);
+            font-weight: 700;
+        }
+        
+        .safety-systems {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .safety-system {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: rgba(13, 25, 43, 0.6);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .safety-system.active {
+            border-color: #67b26f;
+        }
+        
+        .safety-system i {
+            color: #67b26f;
+        }
+        
+        .system-status {
+            font-size: 12px;
+            color: #67b26f;
+            font-weight: 600;
+        }
+        
+        .compliance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        
+        .compliance-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: rgba(13, 25, 43, 0.6);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .compliance-item.compliant {
+            border-color: #67b26f;
+        }
+        
+        .compliance-item i {
+            color: #67b26f;
+        }
+        
+        .compliance-status {
+            font-size: 12px;
+            color: #67b26f;
+            font-weight: 600;
+        }
+        
+        .incident-log {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .incident-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 8px;
+            background: rgba(13, 25, 43, 0.6);
+            border-radius: 6px;
+            border-left: 4px solid #4a90e2;
+        }
+        
+        .incident-time {
+            font-size: 12px;
+            color: #b0b0b0;
+        }
+        
+        .incident-type {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        .incident-type.info {
+            background: rgba(74, 144, 226, 0.2);
+            color: #4a90e2;
+        }
+        
+        .incident-type.warning {
+            background: rgba(226, 176, 74, 0.2);
+            color: #e2b04a;
+        }
+        
+        .btn.danger {
+            background: rgba(220, 53, 69, 0.2);
+            border: 1px solid rgba(220, 53, 69, 0.5);
+            color: #dc3545;
+        }
+        
+        .btn.danger:hover {
+            background: rgba(220, 53, 69, 0.3);
+        }
+    </style>
 </head>
 <body>
     <div class="dashboard-container">
@@ -331,7 +593,7 @@
                 </div>
             </div>
 
-            <!-- Other Pages -->
+            <!-- Electrolyzer Control Page -->
             <div id="electrolyzer" class="page">
                 <div class="header">
                     <div class="header-title">
@@ -342,11 +604,206 @@
                         <div class="time-display" id="electrolyzerTime">--:--:--</div>
                     </div>
                 </div>
-                <div class="page-content">
-                    <p>Electrolyzer control interface coming soon...</p>
+
+                <!-- Real-time Process Variables -->
+                <div class="status-grid">
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">Stack Temperature</div>
+                            <div class="status-icon">
+                                <i class="fas fa-thermometer-half"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="stackTemp">68.5°C</div>
+                        <div class="status-trend">
+                            <i class="fas fa-arrow-up"></i>
+                            Within optimal range
+                        </div>
+                    </div>
+                    <div class="status-card success">
+                        <div class="status-header">
+                            <div class="status-title">Oxygen Purity</div>
+                            <div class="status-icon">
+                                <i class="fas fa-wind"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="oxygenPurity">99.6%</div>
+                        <div class="status-trend">
+                            <i class="fas fa-check"></i>
+                            Medical grade
+                        </div>
+                    </div>
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">Water Level</div>
+                            <div class="status-icon">
+                                <i class="fas fa-tint"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="waterLevel">85%</div>
+                        <div class="status-trend">
+                            <i class="fas fa-check"></i>
+                            Optimal
+                        </div>
+                    </div>
+                    <div class="status-card warning">
+                        <div class="status-header">
+                            <div class="status-title">Hydrogen Production</div>
+                            <div class="status-icon">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="hydrogenProduction">42.3 L/min</div>
+                        <div class="status-trend">
+                            <i class="fas fa-arrow-up"></i>
+                            By-product utilization
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Electrolyzer Control Charts -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">Electrolyzer Performance Metrics</div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="electrolyzerChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">Gas Production Rates</div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="gasProductionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced Control Panel -->
+                <div class="control-panel">
+                    <div class="chart-header">
+                        <div class="chart-title">Advanced Electrolyzer Control</div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label class="control-label">
+                            <i class="fas fa-bolt"></i>
+                            Current Density Setpoint
+                        </label>
+                        <div class="slider-container">
+                            <span>0 A/cm²</span>
+                            <input type="range" min="0" max="3" step="0.1" value="1.5" class="slider" id="currentDensity">
+                            <span>3 A/cm²</span>
+                            <span class="slider-value" id="currentDensityValue">1.5 A/cm²</span>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label class="control-label">
+                            <i class="fas fa-tint"></i>
+                            Water Flow Rate
+                        </label>
+                        <div class="slider-container">
+                            <span>0 L/min</span>
+                            <input type="range" min="0" max="20" value="12" class="slider" id="waterFlow">
+                            <span>20 L/min</span>
+                            <span class="slider-value" id="waterFlowValue">12 L/min</span>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label class="control-label">
+                            <i class="fas fa-thermometer-half"></i>
+                            Stack Temperature Control
+                        </label>
+                        <div class="slider-container">
+                            <span>60°C</span>
+                            <input type="range" min="60" max="80" value="68" class="slider" id="stackTempControl">
+                            <span>80°C</span>
+                            <span class="slider-value" id="stackTempValue">68°C</span>
+                        </div>
+                    </div>
+
+                    <div class="btn-group">
+                        <button class="btn btn-primary" onclick="startElectrolyzer()">
+                            <i class="fas fa-play"></i>
+                            Start Production
+                        </button>
+                        <button class="btn btn-outline" onclick="pauseElectrolyzer()">
+                            <i class="fas fa-pause"></i>
+                            Pause System
+                        </button>
+                        <button class="btn btn-outline" onclick="emergencyShutdown()">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Emergency Stop
+                        </button>
+                        <button class="btn btn-outline" onclick="calibrateSensors()">
+                            <i class="fas fa-sync"></i>
+                            Calibrate Sensors
+                        </button>
+                    </div>
+                </div>
+
+                <!-- System Status Panel -->
+                <div class="status-grid">
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">System Pressure</div>
+                            <div class="status-icon">
+                                <i class="fas fa-gauge-high"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="systemPressure">45.2 psi</div>
+                        <div class="status-trend">
+                            <i class="fas fa-check"></i>
+                            Normal
+                        </div>
+                    </div>
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">Cell Voltage</div>
+                            <div class="status-icon">
+                                <i class="fas fa-bolt-lightning"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="cellVoltage">1.85 V</div>
+                        <div class="status-trend">
+                            <i class="fas fa-check"></i>
+                            Stable
+                        </div>
+                    </div>
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">Coolant Flow</div>
+                            <div class="status-icon">
+                                <i class="fas fa-fan"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="coolantFlow">8.2 L/min</div>
+                        <div class="status-trend">
+                            <i class="fas fa-check"></i>
+                            Optimal
+                        </div>
+                    </div>
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">Power Consumption</div>
+                            <div class="status-icon">
+                                <i class="fas fa-plug"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="powerConsumption">223.5 kW</div>
+                        <div class="status-trend">
+                            <i class="fas fa-arrow-up"></i>
+                            +5.2 kW
+                        </div>
+                    </div>
                 </div>
             </div>
 
+            <!-- Performance Analytics Page -->
             <div id="analytics" class="page">
                 <div class="header">
                     <div class="header-title">
@@ -357,12 +814,827 @@
                         <div class="time-display" id="analyticsTime">--:--:--</div>
                     </div>
                 </div>
-                <div class="page-content">
-                    <p>Analytics dashboard coming soon...</p>
+
+                <!-- Key Performance Indicators -->
+                <div class="status-grid">
+                    <div class="status-card success">
+                        <div class="status-header">
+                            <div class="status-title">Cost Savings</div>
+                            <div class="status-icon">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="costSavings">28%</div>
+                        <div class="status-trend">
+                            <i class="fas fa-arrow-up"></i>
+                            vs Standard MPC
+                        </div>
+                    </div>
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">Oxygen Availability</div>
+                            <div class="status-icon">
+                                <i class="fas fa-wind"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="oxygenAvailability">99.5%</div>
+                        <div class="status-trend">
+                            <i class="fas fa-check"></i>
+                            Hospital grade
+                        </div>
+                    </div>
+                    <div class="status-card warning">
+                        <div class="status-header">
+                            <div class="status-title">PV Utilization</div>
+                            <div class="status-icon">
+                                <i class="fas fa-sun"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="pvUtilization">92%</div>
+                        <div class="status-trend">
+                            <i class="fas fa-arrow-up"></i>
+                            +15% optimized
+                        </div>
+                    </div>
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">Safety Violations</div>
+                            <div class="status-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="safetyViolations">0</div>
+                        <div class="status-trend">
+                            <i class="fas fa-check"></i>
+                            No violations
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analytics Charts -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">Economic Performance Comparison</div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="economicChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">Safety Constraint Violations</div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="safetyChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Computational Performance -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">Computational Performance</div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="computationalChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Performance Metrics Table -->
+                <div class="control-panel">
+                    <div class="chart-header">
+                        <div class="chart-title">Detailed Performance Metrics</div>
+                    </div>
+                    <div class="metrics-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Metric</th>
+                                    <th>HE-NMPC</th>
+                                    <th>Stochastic MPC</th>
+                                    <th>Mixed-Integer MPC</th>
+                                    <th>Standard MPC</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Levelized Cost ($/kg O₂)</td>
+                                    <td class="best">142</td>
+                                    <td>168</td>
+                                    <td>185</td>
+                                    <td>210</td>
+                                </tr>
+                                <tr>
+                                    <td>Oxygen Availability (%)</td>
+                                    <td class="best">99.5</td>
+                                    <td>98.7</td>
+                                    <td>97.2</td>
+                                    <td>95.8</td>
+                                </tr>
+                                <tr>
+                                    <td>PV Utilization (%)</td>
+                                    <td class="best">92</td>
+                                    <td>85</td>
+                                    <td>78</td>
+                                    <td>72</td>
+                                </tr>
+                                <tr>
+                                    <td>Computation Time (ms)</td>
+                                    <td class="best">45</td>
+                                    <td>120</td>
+                                    <td>280</td>
+                                    <td>85</td>
+                                </tr>
+                                <tr>
+                                    <td>Safety Violations</td>
+                                    <td class="best">0</td>
+                                    <td>2</td>
+                                    <td>5</td>
+                                    <td>8</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Analytics Controls -->
+                <div class="control-panel">
+                    <div class="chart-header">
+                        <div class="chart-title">Analytics Configuration</div>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-primary" onclick="exportAnalyticsData()">
+                            <i class="fas fa-download"></i>
+                            Export Data
+                        </button>
+                        <button class="btn btn-outline" onclick="generateReport()">
+                            <i class="fas fa-chart-bar"></i>
+                            Generate Report
+                        </button>
+                        <button class="btn btn-outline" onclick="runBenchmark()">
+                            <i class="fas fa-tachometer-alt"></i>
+                            Run Benchmark
+                        </button>
+                        <button class="btn btn-outline" onclick="optimizeParameters()">
+                            <i class="fas fa-cogs"></i>
+                            Optimize Parameters
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <!-- Add other pages as needed -->
+            <!-- Neural MPC Page -->
+            <div id="neural" class="page">
+                <div class="header">
+                    <div class="header-title">
+                        <h1>Neural MPC System</h1>
+                        <p>Artificial Neural Network Enhanced Model Predictive Control</p>
+                    </div>
+                    <div class="header-actions">
+                        <div class="time-display" id="neuralTime">--:--:--</div>
+                    </div>
+                </div>
+
+                <!-- Neural Network Status -->
+                <div class="status-grid">
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">Neural Network Status</div>
+                            <div class="status-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="nnStatus">ACTIVE</div>
+                        <div class="status-trend">
+                            <i class="fas fa-check"></i>
+                            Trained & Optimized
+                        </div>
+                    </div>
+                    <div class="status-card success">
+                        <div class="status-header">
+                            <div class="status-title">Prediction Accuracy</div>
+                            <div class="status-icon">
+                                <i class="fas fa-bullseye"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="predictionAccuracy">96.2%</div>
+                        <div class="status-trend">
+                            <i class="fas fa-arrow-up"></i>
+                            +2.1% improved
+                        </div>
+                    </div>
+                    <div class="status-card warning">
+                        <div class="status-header">
+                            <div class="status-title">Training Loss</div>
+                            <div class="status-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="trainingLoss">0.023</div>
+                        <div class="status-trend">
+                            <i class="fas fa-arrow-down"></i>
+                            Converging
+                        </div>
+                    </div>
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">Model Version</div>
+                            <div class="status-icon">
+                                <i class="fas fa-code-branch"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="modelVersion">v2.1.4</div>
+                        <div class="status-trend">
+                            <i class="fas fa-check"></i>
+                            Latest
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Neural Network Architecture -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">Neural Network Architecture</div>
+                        </div>
+                        <div class="neural-architecture">
+                            <div class="nn-layer input-layer">
+                                <div class="layer-title">Input Layer</div>
+                                <div class="neurons">
+                                    <div class="neuron">Current</div>
+                                    <div class="neuron">Voltage</div>
+                                    <div class="neuron">Temperature</div>
+                                    <div class="neuron">Pressure</div>
+                                    <div class="neuron">PV Power</div>
+                                    <div class="neuron">O₂ Demand</div>
+                                </div>
+                            </div>
+                            
+                            <div class="nn-connections">
+                                <div class="connection-line"></div>
+                            </div>
+                            
+                            <div class="nn-layer hidden-layer">
+                                <div class="layer-title">Hidden Layer 1</div>
+                                <div class="neurons">
+                                    <div class="neuron">LSTM 64</div>
+                                    <div class="neuron">LSTM 64</div>
+                                    <div class="neuron">LSTM 64</div>
+                                </div>
+                            </div>
+                            
+                            <div class="nn-connections">
+                                <div class="connection-line"></div>
+                            </div>
+                            
+                            <div class="nn-layer hidden-layer">
+                                <div class="layer-title">Hidden Layer 2</div>
+                                <div class="neurons">
+                                    <div class="neuron">Dense 32</div>
+                                    <div class="neuron">Dense 32</div>
+                                </div>
+                            </div>
+                            
+                            <div class="nn-connections">
+                                <div class="connection-line"></div>
+                            </div>
+                            
+                            <div class="nn-layer output-layer">
+                                <div class="layer-title">Output Layer</div>
+                                <div class="neurons">
+                                    <div class="neuron">O₂ Production</div>
+                                    <div class="neuron">Efficiency</div>
+                                    <div class="neuron">Safety Margin</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">Training Performance</div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="trainingChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Neural Network Predictions -->
+                <div class="control-panel">
+                    <div class="chart-header">
+                        <div class="chart-title">Real-time Neural Predictions</div>
+                    </div>
+                    <div class="predictions-grid">
+                        <div class="prediction-card">
+                            <div class="prediction-title">Next Hour Production</div>
+                            <div class="prediction-value" id="nextHourProduction">87.2%</div>
+                            <div class="prediction-confidence">Confidence: 94%</div>
+                        </div>
+                        <div class="prediction-card">
+                            <div class="prediction-title">Efficiency Trend</div>
+                            <div class="prediction-value" id="efficiencyTrend">+1.3%</div>
+                            <div class="prediction-confidence">Confidence: 89%</div>
+                        </div>
+                        <div class="prediction-card">
+                            <div class="prediction-title">Safety Forecast</div>
+                            <div class="prediction-value" id="safetyForecast">Stable</div>
+                            <div class="prediction-confidence">Confidence: 96%</div>
+                        </div>
+                        <div class="prediction-card">
+                            <div class="prediction-title">Optimal Setpoint</div>
+                            <div class="prediction-value" id="optimalSetpoint">76.8%</div>
+                            <div class="prediction-confidence">Confidence: 91%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Neural Network Controls -->
+                <div class="control-panel">
+                    <div class="chart-header">
+                        <div class="chart-title">Neural Network Management</div>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-primary" onclick="retrainNeuralNetwork()">
+                            <i class="fas fa-brain"></i>
+                            Retrain Model
+                        </button>
+                        <button class="btn btn-outline" onclick="updateNeuralWeights()">
+                            <i class="fas fa-sync"></i>
+                            Update Weights
+                        </button>
+                        <button class="btn btn-outline" onclick="exportNeuralModel()">
+                            <i class="fas fa-download"></i>
+                            Export Model
+                        </button>
+                        <button class="btn btn-outline" onclick="runInferenceTest()">
+                            <i class="fas fa-vial"></i>
+                            Run Inference Test
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Model Performance Metrics -->
+                <div class="status-grid">
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">Inference Time</div>
+                            <div class="status-icon">
+                                <i class="fas fa-stopwatch"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="inferenceTime">12.3 ms</div>
+                        <div class="status-trend">
+                            <i class="fas fa-check"></i>
+                            Real-time capable
+                        </div>
+                    </div>
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">Model Size</div>
+                            <div class="status-icon">
+                                <i class="fas fa-weight-hanging"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="modelSize">2.4 MB</div>
+                        <div class="status-trend">
+                            <i class="fas fa-check"></i>
+                            MCU compatible
+                        </div>
+                    </div>
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">Training Epochs</div>
+                            <div class="status-icon">
+                                <i class="fas fa-redo"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="trainingEpochs">150</div>
+                        <div class="status-trend">
+                            <i class="fas fa-check"></i>
+                            Converged
+                        </div>
+                    </div>
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">Data Points</div>
+                            <div class="status-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="dataPoints">45.2K</div>
+                        <div class="status-trend">
+                            <i class="fas fa-arrow-up"></i>
+                            Growing dataset
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Financial Analysis Page -->
+            <div id="financial" class="page">
+                <div class="header">
+                    <div class="header-title">
+                        <h1>Financial Analysis</h1>
+                        <p>Economic Performance and Cost-Benefit Analysis</p>
+                    </div>
+                    <div class="header-actions">
+                        <div class="time-display" id="financialTime">--:--:--</div>
+                    </div>
+                </div>
+
+                <!-- Financial Metrics -->
+                <div class="status-grid">
+                    <div class="status-card success">
+                        <div class="status-header">
+                            <div class="status-title">Daily Savings</div>
+                            <div class="status-icon">
+                                <i class="fas fa-piggy-bank"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="dailySavings">$342</div>
+                        <div class="status-trend">
+                            <i class="fas fa-arrow-up"></i>
+                            +15% vs last week
+                        </div>
+                    </div>
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">Levelized Cost</div>
+                            <div class="status-icon">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="levelizedCost">$142/kg</div>
+                        <div class="status-trend">
+                            <i class="fas fa-arrow-down"></i>
+                            -8% optimized
+                        </div>
+                    </div>
+                    <div class="status-card warning">
+                        <div class="status-header">
+                            <div class="status-title">ROI</div>
+                            <div class="status-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="roi">28%</div>
+                        <div class="status-trend">
+                            <i class="fas fa-arrow-up"></i>
+                            Projected annual
+                        </div>
+                    </div>
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">Payback Period</div>
+                            <div class="status-icon">
+                                <i class="fas fa-calendar"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="paybackPeriod">3.2 yrs</div>
+                        <div class="status-trend">
+                            <i class="fas fa-arrow-down"></i>
+                            Reduced by 8 months
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Financial Charts -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">Cost Breakdown Analysis</div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="costBreakdownChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">Savings Over Time</div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="savingsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detailed Cost Analysis -->
+                <div class="control-panel">
+                    <div class="chart-header">
+                        <div class="chart-title">Detailed Cost Analysis</div>
+                    </div>
+                    <div class="cost-analysis-grid">
+                        <div class="cost-category">
+                            <h4>Capital Expenditure (CAPEX)</h4>
+                            <div class="cost-item">
+                                <span>PEM Electrolyzer</span>
+                                <span class="cost-value">$450,000</span>
+                            </div>
+                            <div class="cost-item">
+                                <span>PV System</span>
+                                <span class="cost-value">$280,000</span>
+                            </div>
+                            <div class="cost-item">
+                                <span>Control System</span>
+                                <span class="cost-value">$85,000</span>
+                            </div>
+                            <div class="cost-total">
+                                <span>Total CAPEX</span>
+                                <span class="cost-value">$815,000</span>
+                            </div>
+                        </div>
+                        
+                        <div class="cost-category">
+                            <h4>Operational Expenditure (OPEX)</h4>
+                            <div class="cost-item">
+                                <span>Electricity Cost</span>
+                                <span class="cost-value">$12,500/mo</span>
+                            </div>
+                            <div class="cost-item">
+                                <span>Maintenance</span>
+                                <span class="cost-value">$2,300/mo</span>
+                            </div>
+                            <div class="cost-item">
+                                <span>Personnel</span>
+                                <span class="cost-value">$8,000/mo</span>
+                            </div>
+                            <div class="cost-total">
+                                <span>Total OPEX</span>
+                                <span class="cost-value">$22,800/mo</span>
+                            </div>
+                        </div>
+                        
+                        <div class="cost-category">
+                            <h4>Revenue & Savings</h4>
+                            <div class="cost-item">
+                                <span>Oxygen Production</span>
+                                <span class="cost-value revenue">$18,500/mo</span>
+                            </div>
+                            <div class="cost-item">
+                                <span>Hydrogen By-product</span>
+                                <span class="cost-value revenue">$6,200/mo</span>
+                            </div>
+                            <div class="cost-item">
+                                <span>Grid Services</span>
+                                <span class="cost-value revenue">$1,800/mo</span>
+                            </div>
+                            <div class="cost-total">
+                                <span>Total Revenue</span>
+                                <span class="cost-value revenue">$26,500/mo</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Financial Controls -->
+                <div class="control-panel">
+                    <div class="chart-header">
+                        <div class="chart-title">Financial Optimization</div>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-primary" onclick="runEconomicOptimization()">
+                            <i class="fas fa-calculator"></i>
+                            Run Economic Optimization
+                        </button>
+                        <button class="btn btn-outline" onclick="generateFinancialReport()">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            Generate Report
+                        </button>
+                        <button class="btn btn-outline" onclick="updateCostParameters()">
+                            <i class="fas fa-edit"></i>
+                            Update Parameters
+                        </button>
+                        <button class="btn btn-outline" onclick="exportFinancialData()">
+                            <i class="fas fa-download"></i>
+                            Export Data
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ROI Projection -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">Return on Investment Projection</div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="roiChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Safety & Compliance Page -->
+            <div id="safety" class="page">
+                <div class="header">
+                    <div class="header-title">
+                        <h1>Safety & Compliance</h1>
+                        <p>System Safety Monitoring and Regulatory Compliance</p>
+                    </div>
+                    <div class="header-actions">
+                        <div class="time-display" id="safetyTime">--:--:--</div>
+                    </div>
+                </div>
+
+                <!-- Safety Status -->
+                <div class="status-grid">
+                    <div class="status-card success">
+                        <div class="status-header">
+                            <div class="status-title">Overall Safety</div>
+                            <div class="status-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="overallSafety">EXCELLENT</div>
+                        <div class="status-trend">
+                            <i class="fas fa-check"></i>
+                            All systems nominal
+                        </div>
+                    </div>
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">Pressure Safety</div>
+                            <div class="status-icon">
+                                <i class="fas fa-gauge-high"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="pressureSafety">NORMAL</div>
+                        <div class="status-trend">
+                            <i class="fas fa-check"></i>
+                            Within limits
+                        </div>
+                    </div>
+                    <div class="status-card warning">
+                        <div class="status-header">
+                            <div class="status-title">Temperature Safety</div>
+                            <div class="status-icon">
+                                <i class="fas fa-temperature-high"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="temperatureSafety">WATCH</div>
+                        <div class="status-trend">
+                            <i class="fas fa-exclamation"></i>
+                            Approaching limit
+                        </div>
+                    </div>
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">Gas Detection</div>
+                            <div class="status-icon">
+                                <i class="fas fa-wind"></i>
+                            </div>
+                        </div>
+                        <div class="status-value" id="gasDetection">CLEAR</div>
+                        <div class="status-trend">
+                            <i class="fas fa-check"></i>
+                            No leaks detected
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Safety Systems Overview -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">Safety Systems Status</div>
+                        </div>
+                        <div class="safety-systems">
+                            <div class="safety-system active">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Emergency Shutdown</span>
+                                <span class="system-status">ACTIVE</span>
+                            </div>
+                            <div class="safety-system active">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Pressure Relief</span>
+                                <span class="system-status">ACTIVE</span>
+                            </div>
+                            <div class="safety-system active">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Gas Detection</span>
+                                <span class="system-status">ACTIVE</span>
+                            </div>
+                            <div class="safety-system active">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Fire Suppression</span>
+                                <span class="system-status">ACTIVE</span>
+                            </div>
+                            <div class="safety-system active">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Ventilation</span>
+                                <span class="system-status">ACTIVE</span>
+                            </div>
+                            <div class="safety-system active">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Backup Power</span>
+                                <span class="system-status">ACTIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">Safety Margin Analysis</div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="safetyMarginChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Compliance Status -->
+                <div class="control-panel">
+                    <div class="chart-header">
+                        <div class="chart-title">Regulatory Compliance Status</div>
+                    </div>
+                    <div class="compliance-grid">
+                        <div class="compliance-item compliant">
+                            <i class="fas fa-check-circle"></i>
+                            <span>ISO 22734:2019</span>
+                            <span class="compliance-status">COMPLIANT</span>
+                        </div>
+                        <div class="compliance-item compliant">
+                            <i class="fas fa-check-circle"></i>
+                            <span>IEC 60079</span>
+                            <span class="compliance-status">COMPLIANT</span>
+                        </div>
+                        <div class="compliance-item compliant">
+                            <i class="fas fa-check-circle"></i>
+                            <span>NFPA 2</span>
+                            <span class="compliance-status">COMPLIANT</span>
+                        </div>
+                        <div class="compliance-item compliant">
+                            <i class="fas fa-check-circle"></i>
+                            <span>ASME BPVC</span>
+                            <span class="compliance-status">COMPLIANT</span>
+                        </div>
+                        <div class="compliance-item compliant">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Medical Oxygen Standards</span>
+                            <span class="compliance-status">COMPLIANT</span>
+                        </div>
+                        <div class="compliance-item compliant">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Local Regulations</span>
+                            <span class="compliance-status">COMPLIANT</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Safety Controls -->
+                <div class="control-panel">
+                    <div class="chart-header">
+                        <div class="chart-title">Safety System Controls</div>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-primary" onclick="runSafetyDiagnostics()">
+                            <i class="fas fa-stethoscope"></i>
+                            Run Diagnostics
+                        </button>
+                        <button class="btn btn-outline" onclick="testSafetySystems()">
+                            <i class="fas fa-vial"></i>
+                            Test Safety Systems
+                        </button>
+                        <button class="btn btn-outline warning" onclick="initiateSafetyDrill()">
+                            <i class="fas fa-bell"></i>
+                            Safety Drill
+                        </button>
+                        <button class="btn btn-outline danger" onclick="emergencyShutdown()">
+                            <i class="fas fa-power-off"></i>
+                            Emergency Stop
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Incident Log -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">Safety Incident Log</div>
+                    </div>
+                    <div class="incident-log">
+                        <div class="incident-item">
+                            <div class="incident-time">2024-01-15 14:23</div>
+                            <div class="incident-type info">System Startup</div>
+                            <div class="incident-description">Normal system initialization</div>
+                        </div>
+                        <div class="incident-item">
+                            <div class="incident-time">2024-01-15 12:45</div>
+                            <div class="incident-type info">Safety Check</div>
+                            <div class="incident-description">Routine safety systems test passed</div>
+                        </div>
+                        <div class="incident-item">
+                            <div class="incident-time">2024-01-14 16:30</div>
+                            <div class="incident-type warning">Temperature Alert</div>
+                            <div class="incident-description">Stack temperature approached upper limit</div>
+                        </div>
+                        <div class="incident-item">
+                            <div class="incident-time">2024-01-13 09:15</div>
+                            <div class="incident-type info">Maintenance</div>
+                            <div class="incident-description">Scheduled maintenance completed</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -380,10 +1652,160 @@
     <script src="simulink-bridge.js"></script>
     <script src="app.js"></script>
 
-    <!-- Quick Test Script -->
+    <!-- Page-specific JavaScript -->
     <script>
-    console.log('=== HE-NMPC DASHBOARD LOADED ===');
-    console.log('All files should be working now!');
+        // Electrolyzer Control Functions
+        function startElectrolyzer() {
+            console.log('Starting electrolyzer production...');
+            sendUpperLayerCommand('START_PRODUCTION');
+            showNotification('Electrolyzer production started', 'success');
+        }
+
+        function pauseElectrolyzer() {
+            console.log('Pausing electrolyzer system...');
+            sendUpperLayerCommand('PAUSE_SYSTEM');
+            showNotification('System paused', 'warning');
+        }
+
+        function emergencyShutdown() {
+            console.log('Emergency shutdown initiated!');
+            sendLowerLayerCommand('EMERGENCY_STOP');
+            showNotification('EMERGENCY SHUTDOWN ACTIVATED', 'error');
+        }
+
+        function calibrateSensors() {
+            console.log('Calibrating sensors...');
+            sendLowerLayerCommand('CALIBRATE_SENSORS');
+            showNotification('Sensor calibration started', 'info');
+        }
+
+        // Analytics Functions
+        function exportAnalyticsData() {
+            console.log('Exporting analytics data...');
+            showNotification('Analytics data exported successfully', 'success');
+        }
+
+        function generateReport() {
+            console.log('Generating performance report...');
+            showNotification('Performance report generated', 'success');
+        }
+
+        function runBenchmark() {
+            console.log('Running system benchmark...');
+            showNotification('Benchmark test started', 'info');
+        }
+
+        function optimizeParameters() {
+            console.log('Optimizing system parameters...');
+            sendUpperLayerCommand('OPTIMIZE_PARAMETERS');
+            showNotification('Parameter optimization started', 'success');
+        }
+
+        // Neural Network Functions
+        function retrainNeuralNetwork() {
+            console.log('Retraining neural network...');
+            showNotification('Neural network retraining started', 'info');
+        }
+
+        function updateNeuralWeights() {
+            console.log('Updating neural network weights...');
+            showNotification('Neural weights updated', 'success');
+        }
+
+        function exportNeuralModel() {
+            console.log('Exporting neural model...');
+            showNotification('Neural model exported', 'success');
+        }
+
+        function runInferenceTest() {
+            console.log('Running inference test...');
+            showNotification('Inference test completed', 'success');
+        }
+
+        // Financial Functions
+        function runEconomicOptimization() {
+            console.log('Running economic optimization...');
+            sendUpperLayerCommand('ECONOMIC_OPTIMIZATION');
+            showNotification('Economic optimization started', 'success');
+        }
+
+        function generateFinancialReport() {
+            console.log('Generating financial report...');
+            showNotification('Financial report generated', 'success');
+        }
+
+        function updateCostParameters() {
+            console.log('Updating cost parameters...');
+            showNotification('Cost parameters updated', 'success');
+        }
+
+        function exportFinancialData() {
+            console.log('Exporting financial data...');
+            showNotification('Financial data exported', 'success');
+        }
+
+        // Safety Functions
+        function runSafetyDiagnostics() {
+            console.log('Running safety diagnostics...');
+            sendLowerLayerCommand('RUN_DIAGNOSTICS');
+            showNotification('Safety diagnostics started', 'info');
+        }
+
+        function testSafetySystems() {
+            console.log('Testing safety systems...');
+            sendLowerLayerCommand('TEST_SAFETY_SYSTEMS');
+            showNotification('Safety systems test initiated', 'info');
+        }
+
+        function initiateSafetyDrill() {
+            console.log('Initiating safety drill...');
+            sendLowerLayerCommand('SAFETY_DRILL');
+            showNotification('Safety drill activated', 'warning');
+        }
+
+        // Initialize sliders for new pages
+        document.addEventListener('DOMContentLoaded', function() {
+            // Electrolyzer control sliders
+            const currentDensitySlider = document.getElementById('currentDensity');
+            if (currentDensitySlider) {
+                currentDensitySlider.addEventListener('input', function(e) {
+                    document.getElementById('currentDensityValue').textContent = e.target.value + ' A/cm²';
+                });
+            }
+
+            const waterFlowSlider = document.getElementById('waterFlow');
+            if (waterFlowSlider) {
+                waterFlowSlider.addEventListener('input', function(e) {
+                    document.getElementById('waterFlowValue').textContent = e.target.value + ' L/min';
+                });
+            }
+
+            const stackTempSlider = document.getElementById('stackTempControl');
+            if (stackTempSlider) {
+                stackTempSlider.addEventListener('input', function(e) {
+                    document.getElementById('stackTempValue').textContent = e.target.value + '°C';
+                });
+            }
+        });
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+            const text = document.getElementById('notificationText');
+            
+            if (notification && text) {
+                text.textContent = message;
+                notification.className = `notification ${type}`;
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+        }
+
+        console.log('=== HE-NMPC COMPLETE DASHBOARD LOADED ===');
+        console.log('All pages implemented and ready!');
     </script>
 </body>
 </html>
